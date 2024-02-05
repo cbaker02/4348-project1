@@ -18,13 +18,26 @@ public class Project1 {
             fileManager(filename);
 
             System.out.println("You made it back to main!!");
-            
+
         } catch (Throwable t) {
             t.printStackTrace();
         }
     }
     
     public static void fileManager(String fileName) {
-        System.out.println("You made it to the file manager!");
+        try {
+            File file = new File(fileName);
+            Scanner in = new Scanner(file);
+
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+                System.out.println(line);
+            }
+
+            in.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
