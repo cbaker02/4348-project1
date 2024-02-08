@@ -9,16 +9,17 @@ public class Project1 {
         try {
             int x;
 
+            String fileName = args[0];
 
-            String filename = args[0];
+
             Runtime rt = Runtime.getRuntime();
 
+            Process proc = rt.exec(fileName);
             // String filename = "example1.txt";
-            // File fileName = new File(args[0]);
 
             // System.out.println("Is this the file you want to open? " + filename);
 
-            List<Integer> instr = fileManager(filename);
+            List<Integer> instr = fileManager(fileName);
 
             // System.out.println("You made it back to main!!");
 
@@ -75,5 +76,13 @@ public class Project1 {
             // TODO: handle exception
         }
         return curIns;
+    }
+
+    public static void CPU(){
+
+    }
+
+    public static void mainMem(){
+
     }
 }
