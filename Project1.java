@@ -1,88 +1,55 @@
 import java.io.*;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 import java.lang.Runtime;
 
-public class Project1 {
+public class Project1{
     public static void main(String args[]) {
-        try {
-            int x;
+        // String file = args[0];
+        String file = "example1.txt";
 
-            String fileName = args[0];
-
-
+        try{
             Runtime rt = Runtime.getRuntime();
 
-            Process proc = rt.exec(fileName);
-            // String filename = "example1.txt";
+            // Process p1 = rt.exec("javac Memory.java");
+            Process proc = rt.exec("java Memory");
 
-            // System.out.println("Is this the file you want to open? " + filename);
+            InputStream is = proc.getInputStream();
+            OutputStream os = proc.getOutputStream();
+            PrintWriter pw = new PrintWriter(os);
 
-            List<Integer> instr = fileManager(fileName);
+            Scanner memScanner = new Scanner(is);
 
-            // System.out.println("You made it back to main!!");
+            pw.printf(file + "\n");
+            pw.flush();
 
-            for(int i = 0; i < instr.size(); i++){
-                System.out.println(instr.get(i));
+            Scanner sc = new Scanner(is);
+
+            System.out.println("Howdy");
+
+            while(true){
+                int currVal = readMem(pw, is, memScanner, os, 0);
+
+                System.out.println(currVal);
             }
+            // sc.close();
 
-
-        } catch (Throwable t) {
+        } catch(Throwable t) {
             t.printStackTrace();
         }
     }
-    
-    public static List<Integer> fileManager(String fileName) {
-        // This functions opens and parses the given file 
-        try {
-            // Setup to parse the file
-            File file = new File(fileName);
-            Scanner in = new Scanner(file); 
-            List<Integer> instruction = new ArrayList<Integer>();
 
-            while (in.hasNextLine()) {
-                // Parse by line and split by space
-                String line = in.nextLine();
-                String[] words = line.split(" ");
+    private static int readMem(PrintWriter pw, InputStream is, Scanner memScanner, OutputStream os, int address) {
+        pw.printf("1, " + address + "\n");
+        pw.flush();
 
-                int curIns = -1;
-                
-                // Send only the instruction to verify int
-                curIns = getInt(words[0]);
+        if(memScanner.hasNext()) {
+            String temp = memScanner.next();
 
-                // Verifies that it's not the initialized var 
-                // and adds to the array of instructions
-                if(curIns != -1) {
-                    instruction.add(curIns);
-                }
+            if(!temp.isEmpty()){
+                int tempInstr = Integer.parseInt(temp);
+                return (tempInstr);
             }
-            in.close();
-            return instruction;
-
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
-        return null;
-    }
-
-    public static int getInt(String curr) {
-        // Verify that the first item was an int and pass back
-        int curIns = -1;
-        try {
-            curIns = Integer.parseInt(curr);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        return curIns;
-    }
-
-    public static void CPU(){
-
-    }
-
-    public static void mainMem(){
-
+        return -1;
     }
 }
