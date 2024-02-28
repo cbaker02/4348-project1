@@ -1,55 +1,46 @@
 import java.io.*;
 import java.util.Scanner;
 import java.lang.Runtime;
+import java.util.Random;
 
 public class Project1{
+    // Default registers
+    static int PC = 0;
+    static int SP = 1000;
+    static int IR;
+    static int AC;
+    static int X;
+    static int Y;
+
+    static int timerFlag;
+    static int numInst = 0;
+
+    static int systemStack = 2000;
+    static int userStack = 1000;
+
+    static boolean userMode = true;         // Changes on interrupt
+    static boolean procInterrupt = false;   // No nested interrupts
     public static void main(String args[]) {
-        // String file = args[0];
-        String file = "example1.txt";
 
-        try{
+        String filename = "example.txt";
+
+        try{ 
+            Memory mem = new Memory();
+            /*
+            mem.memory();
+            */
+
             Runtime rt = Runtime.getRuntime();
-
-            // Process p1 = rt.exec("javac Memory.java");
-            Process proc = rt.exec("java Memory");
-
-            InputStream is = proc.getInputStream();
-            OutputStream os = proc.getOutputStream();
-            PrintWriter pw = new PrintWriter(os);
-
-            Scanner memScanner = new Scanner(is);
-
-            pw.printf(file + "\n");
-            pw.flush();
-
-            Scanner sc = new Scanner(is);
-
-            System.out.println("Howdy");
-
-            while(true){
-                int currVal = readMem(pw, is, memScanner, os, 0);
-
-                System.out.println(currVal);
-            }
-            // sc.close();
-
-        } catch(Throwable t) {
+            Process proc = rt.exec(mem);
+        }  catch (Throwable t) {
             t.printStackTrace();
         }
     }
+}
 
-    private static int readMem(PrintWriter pw, InputStream is, Scanner memScanner, OutputStream os, int address) {
-        pw.printf("1, " + address + "\n");
-        pw.flush();
-
-        if(memScanner.hasNext()) {
-            String temp = memScanner.next();
-
-            if(!temp.isEmpty()){
-                int tempInstr = Integer.parseInt(temp);
-                return (tempInstr);
-            }
-        }
-        return -1;
+class Memory {
+    void memory() {
+        System.out.println("In memory!");
     }
+   
 }
