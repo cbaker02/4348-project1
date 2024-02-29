@@ -17,10 +17,10 @@ int main(int argc, char** argv) {
 
 
     string fileName = argv[1];
-    // int time = atoi(argv[2]);
+    int time = atoi(argv[2]);
 
-//     string fileName = "sample1.txt";
-    int time = 30;
+    // string fileName = "sample1.txt";
+    // int time = 30;
 
     // Piping
 
