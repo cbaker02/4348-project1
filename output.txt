@@ -1,6 +1,13 @@
 sample1.txt:
 ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678910
 
+sample5.txt
+COURSE | DEPT 
+-------------
+ 4348  |  CS 
+ 4376  |  SE
+ 4384  |  CS
+ 
 sample2.txt:
     ------
  /         \

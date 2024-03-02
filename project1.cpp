@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-// #include <sys/types.h>
 #include <string.h>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <ctype.h>
+
 using namespace std;
 
 
@@ -79,10 +79,11 @@ int main(int argc, char** argv) {
         // Initialize registers
         int PC = 0;
         int SP = 1000;
-        int IR;
-        int AC;
-        int X;
-        int Y;
+        int IR = 0;
+        int AC = 0;
+        int X = 0;
+        int Y = 0;
+        string tempString = "";
 
         int timerCount = 0;
 
@@ -91,11 +92,13 @@ int main(int argc, char** argv) {
         int timerFlag = 0;
         int numInst = 0;
 
+        int local_reg;
+
         int systemStack = 2000;
         int userStack = 1000;
 
-        bool userMode = true;         // Changes on interrupt (kernel)
-        bool procInterrupt = false;   // No nested interrupts
+        bool kernelMode = false;            // Changes on interrupt (kernel)
+        bool procInterrupt = false;         // No nested interrupts
 
         int writeFlag = -1;
         
@@ -106,7 +109,7 @@ int main(int argc, char** argv) {
                 procInterrupt = false;
                 timerFlag = 2;
 
-                userMode = true;
+                kernelMode = true;
 
                 tempSP = SP;
                 SP = 2000;
@@ -157,8 +160,8 @@ int main(int argc, char** argv) {
                     write(CPUtoMem[1], &PC, sizeof(PC));
                     read(MemtoCPU[0], &numInst, sizeof(numInst));
 
-                    if(numInst >= 1000 && userMode == false) {
-                        cout << "Error\n";
+                    if(numInst >= 1000 && kernelMode == false) {
+                        cout << "Memory violation: accessing system address "<< numInst <<" in user mode " << '\n';
                     }
 
                     write(CPUtoMem[1], &numInst, sizeof(numInst));
@@ -177,6 +180,10 @@ int main(int argc, char** argv) {
 
                     write(CPUtoMem[1], &numInst, sizeof(numInst));
                     read(MemtoCPU[0], &numInst, sizeof(numInst));
+
+                    if(numInst >= 1000 && kernelMode == false) {
+                        cout << "Memory violation: accessing system address "<< numInst <<" in user mode " << '\n';
+                    }
 
                     write(CPUtoMem[1], &numInst, sizeof(numInst));
                     read(MemtoCPU[0], &numInst, sizeof(numInst));
@@ -246,6 +253,12 @@ int main(int argc, char** argv) {
 
                     write(CPUtoMem[1], &PC, sizeof(PC));
                     read(MemtoCPU[0], &numInst, sizeof(numInst));
+
+                    if(numInst == 1) {
+                        printf("%i", AC);
+                    } else if(numInst == 2) {
+                        printf("%c", AC);
+                    }
 
                     break;
 
@@ -395,11 +408,20 @@ int main(int argc, char** argv) {
 
                     timerFlag = 1;
 
-                    userMode = true;
+                    kernelMode = true;
 
                     tempSP = SP;
                     SP = 2000;
 
+                    // Save Registers to stack
+
+                    // PC to Stack
+                    SP--;
+                    write(CPUtoMem[1], &writeFlag, sizeof(writeFlag));
+                    write(CPUtoMem[1], &SP, sizeof(SP));
+                    write(CPUtoMem[1], &PC, sizeof(PC));
+
+                    // SP to Stack
                     SP--;
                     write(CPUtoMem[1], &writeFlag, sizeof(writeFlag));
                     write(CPUtoMem[1], &SP, sizeof(SP));
@@ -410,16 +432,20 @@ int main(int argc, char** argv) {
 
                 // IRet
                 case 30:
+                    // Pop Return address
                     write(CPUtoMem[1], &SP, sizeof(SP));
                     read(MemtoCPU[0], &tempSP, sizeof(tempSP));
 
                     SP++;
 
+                    // Pop Return Adress
                     write(CPUtoMem[1], &SP, sizeof(SP));
                     read(MemtoCPU[0], &PC, sizeof(PC));
 
                     PC -= 2;
+                    SP++;
 
+                    // Unflag
                     if(timerFlag == 2) {
                         procInterrupt = false;
                     }
@@ -427,7 +453,7 @@ int main(int argc, char** argv) {
 
                     SP = tempSP;
 
-                    userMode = false;
+                    kernelMode = false;
                     break;
 
                 // End

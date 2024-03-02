@@ -1,0 +1,297 @@
+23      // Line one
+13
+23      // Line two
+72
+23      // Line three
+84
+23      // Line four
+13
+23      // Line five
+188
+23      // Line six
+240
+50
+
+        // Line one
+1           // Load C
+67
+9           // Put 2
+2
+1           // Load O
+79
+9           // Put 2
+2
+1           // Load U
+85
+9           // Put 2
+2
+1           // Load R 
+82
+9           // Put 2
+2
+1           // Load S 
+83
+9           // Put 2
+2
+1           // Load E
+69
+9           // Put 2
+2
+1           // load Space
+32
+9
+2
+1           // load |
+124
+9
+2
+1           // load space
+32
+9
+2
+1           // Load D
+68
+9           // Put 2
+2
+1           // Load E 
+69
+9           // Put 2
+2
+1           // Load P 
+80
+9           // Put 2
+2
+1           // Load T 
+84
+9           // Put 2
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+    // Line two
+1           // Load dash (13)
+35
+9           // put 2
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+     // Line three
+1           // load space
+32
+9
+2
+1           // Load 4
+4
+9
+1
+1           // Load 3
+3
+9
+1
+1           // Load 4
+4
+9
+1
+1           // Load 8
+8
+9
+1
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load |
+124
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load C
+67
+9
+2
+1           // Load S
+83
+9
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+     // Line four
+1           // load space
+32
+9
+2
+1           // Load 4
+4
+9
+2
+1           // Load 3
+3
+9
+2
+1           // Load 7
+7
+9
+2
+1           // Load 6
+6
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load |
+124
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load S
+83
+9
+2
+1           // Load E
+69
+9
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+     // Line five
+1           // load space
+32
+9
+2
+1           // Load 4
+4
+9
+2
+1           // Load 3
+3
+9
+2
+1           // Load 8
+8
+9
+2
+1           // Load 4
+4
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load |
+124
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load C
+67
+9
+2
+1           // Load S
+83
+9
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+     // Line six
+1           // load space
+32
+9
+2
+1           // Load 4
+4
+9
+2
+1           // Load 3
+3
+9
+2
+1           // Load 9
+9
+9
+2
+1           // Load 0
+0
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load |
+124
+9
+2
+1           // Load space
+32
+9
+2
+9
+2
+1           // Load C
+67
+9
+2
+1           // Load S
+83
+9
+2
+1           // newline
+10
+9
+2
+24          // return
+
+
+
+.1000
+30 

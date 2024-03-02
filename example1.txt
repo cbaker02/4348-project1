@@ -1,11 +1,16 @@
-
-8   // Get
-14  // CopyToX
-8   // Get
-16  // CopyToY
-8   // Get
-10  // AddX
-11  // AddY
-9   // Put 1
-1
-50  // End
+1   // Load 72=H
+67
+9   // Put 2
+2
+1   // Load 73=I
+79
+9   // Put 2
+2
+23  // Call 11
+11
+50  // End 
+1   // Load 10=newline
+10 
+9   // Put 2
+2
+24  // Return
