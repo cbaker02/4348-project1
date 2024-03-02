@@ -13,14 +13,16 @@ using namespace std;
 int * loadInput(const char* fileName);
 
 int main(int argc, char** argv) {
-    /* Add in error verification*/
+
+    if(argv[3] != NULL){
+        cout << "Error: Incorrect Number of Parameters. Process Ending...\n";
+        exit(0);
+    }
+
+        string fileName = argv[1];
+        int time = atoi(argv[2]);
 
 
-    string fileName = argv[1];
-    int time = atoi(argv[2]);
-
-    // string fileName = "sample1.txt";
-    // int time = 30;
 
     // Piping
 
